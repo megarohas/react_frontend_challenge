@@ -1,6 +1,16 @@
 import React from "react";
 
 const VideoItem = props => {
+  let current_category = props.current_category || "";
+  let video = props.video || {
+    name: "",
+    description: "",
+    prices: {
+      buy: "",
+      rent: ""
+    }
+  };
+
   let renderField = field => (
     <div key={`renderField_${field.label}`}>
       <strong style={{ marginRight: "5px" }}>{field.label}</strong>
@@ -13,7 +23,7 @@ const VideoItem = props => {
       <div style={{ marginBottom: "20px" }}>
         {renderField({ label: "Name: ", content: video.name })}
         {renderField({ label: "Description: ", content: video.description })}
-        {props.current_category === "tv_seasons" &&
+        {current_category === "tv_seasons" &&
           renderField({
             label:
               video.episodes.length > 1 ? "Number of episodes: " : "TV Film",
@@ -25,7 +35,7 @@ const VideoItem = props => {
     );
   };
 
-  return <li>{renderVideo(props.video)}</li>;
+  return <li>{renderVideo(video)}</li>;
 };
 
 export default VideoItem;

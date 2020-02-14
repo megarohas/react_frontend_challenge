@@ -1,14 +1,18 @@
 import React from "react";
 
 const CategorySwitch = props => {
+  let categories = props.categories || [];
+  let current_category = props.current_category || "";
+  let changeCategory = props.changeCategory || (() => {});
+
   let renderButtons = buttons =>
     buttons.map((button, index) => (
       <button
         style={{ marginRight: "10px" }}
         key={`CategorySwitch_renderButtons_${index}`}
-        disabled={props.current_category === button.value}
+        disabled={current_category === button.value}
         onClick={() => {
-          props.changeCategory(button.value);
+          changeCategory(button.value);
         }}
       >
         {button.label}
@@ -16,9 +20,7 @@ const CategorySwitch = props => {
     ));
 
   return (
-    <div style={{ marginBottom: "20px" }}>
-      {renderButtons(props.categories)}
-    </div>
+    <div style={{ marginBottom: "20px" }}>{renderButtons(categories)}</div>
   );
 };
 
