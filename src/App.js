@@ -29,11 +29,20 @@ class App extends React.Component {
       .then(video_library => this.setState({ video_library }));
   }
 
+  changeCategory(category) {
+    this.setState({ current_category: category });
+  }
+
   render() {
     let { current_category_videos, current_category, categories } = this.state;
+    console.log("categories", categories);
     return (
-      <div>
-        <CategorySwitch categories current_category />
+      <div style={{ padding: "20px" }}>
+        <CategorySwitch
+          categories={categories}
+          current_category={current_category}
+          changeCategory={category => this.changeCategory(category)}
+        />
         <VideoList videos={current_category_videos} />
       </div>
     );
