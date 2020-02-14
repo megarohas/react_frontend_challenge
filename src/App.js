@@ -26,16 +26,23 @@ class App extends React.Component {
   componentDidMount() {
     fetch("/videos.json")
       .then(response => response.json())
-      .then(video_library => this.setState({ video_library }));
+      .then(video_library =>
+        this.setState({
+          video_library,
+          current_category_videos: video_library[this.state.current_category]
+        })
+      );
   }
 
   changeCategory(category) {
-    this.setState({ current_category: category });
+    this.setState({
+      current_category: category,
+      current_category_videos: this.state.video_library[category]
+    });
   }
 
   render() {
     let { current_category_videos, current_category, categories } = this.state;
-    console.log("categories", categories);
     return (
       <div style={{ padding: "20px" }}>
         <CategorySwitch
@@ -43,7 +50,10 @@ class App extends React.Component {
           current_category={current_category}
           changeCategory={category => this.changeCategory(category)}
         />
-        <VideoList videos={current_category_videos} />
+        <VideoList
+          videos={current_category_videos}
+          current_category={current_category}
+        />
       </div>
     );
   }

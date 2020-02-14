@@ -1,7 +1,6 @@
 import React from "react";
 
 const CategorySwitch = props => {
-  console.log("CategorySwitch", props);
   let renderButtons = buttons =>
     buttons.map((button, index) => (
       <button
