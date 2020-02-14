@@ -23,22 +23,42 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount() {
-    fetch("/videos.json")
-      .then(response => response.json())
-      .then(video_library =>
-        this.setState({
-          video_library,
-          current_category_videos: video_library[this.state.current_category]
-        })
-      );
+  comparator(video_a, video_b) {
+    return video_b.release - video_a.release;
+  }
+
+  setCurrentCategoryVideos({ category, video_library }) {
+    this.setState({
+      current_category_videos: video_library[category].sort(
+        (video_a, video_b) => this.comparator(video_a, video_b)
+      )
+    });
   }
 
   changeCategory(category) {
     this.setState({
-      current_category: category,
-      current_category_videos: this.state.video_library[category]
+      current_category: category
     });
+
+    this.setCurrentCategoryVideos({
+      category: category,
+      video_library: this.state.video_library
+    });
+  }
+
+  componentDidMount() {
+    fetch("/videos.json")
+      .then(response => response.json())
+      .then(video_library => {
+        this.setState({
+          video_library
+        });
+
+        this.setCurrentCategoryVideos({
+          category: this.state.current_category,
+          video_library
+        });
+      });
   }
 
   render() {

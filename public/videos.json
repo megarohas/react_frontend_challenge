@@ -2,6 +2,7 @@
   "tv_seasons": [
     {
       "name": "Dynasties - Season 1",
+      "release": 2018,
       "prices": {
         "buy": 1299,
         "rent": 499

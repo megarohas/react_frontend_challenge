@@ -15,8 +15,9 @@ const VideoItem = props => {
         {renderField({ label: "Description: ", content: video.description })}
         {props.current_category === "tv_seasons" &&
           renderField({
-            label: "Number of episodes: ",
-            content: video.episodes.length
+            label:
+              video.episodes.length > 1 ? "Number of episodes: " : "TV Film",
+            content: video.episodes.length > 1 ? video.episodes.length : ""
           })}
         {renderField({ label: "Price (Buy):", content: video.prices.buy })}
         {renderField({ label: "Price (Rent): ", content: video.prices.rent })}
