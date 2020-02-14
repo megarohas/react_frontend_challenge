@@ -1,32 +1,25 @@
 import React from "react";
 
 const VideoItem = props => {
+  let renderField = field => (
+    <div key={`renderField_${field.label}`}>
+      <strong style={{ marginRight: "5px" }}>{field.label}</strong>
+      {field.content}
+    </div>
+  );
+
   let renderVideo = video => {
     return (
       <div style={{ marginBottom: "20px" }}>
-        <div>
-          <strong style={{ marginRight: "5px" }}>Name: </strong> {video.name}
-        </div>
-        <div>
-          <strong style={{ marginRight: "5px" }}>Description: </strong>
-          {video.description}
-        </div>
-        {props.current_category === "tv_seasons" && (
-          <div>
-            <strong style={{ marginRight: "10px" }}>
-              Number of episodes:{" "}
-            </strong>
-            {video.episodes.length}
-          </div>
-        )}
-        <div>
-          <strong style={{ marginRight: "5px" }}>Price (Buy):</strong>
-          {video.prices.buy}
-        </div>
-        <div>
-          <strong style={{ marginRight: "5px" }}>Price (Rent): </strong>
-          {video.prices.rent}
-        </div>
+        {renderField({ label: "Name: ", content: video.name })}
+        {renderField({ label: "Description: ", content: video.description })}
+        {props.current_category === "tv_seasons" &&
+          renderField({
+            label: "Number of episodes: ",
+            content: video.episodes.length
+          })}
+        {renderField({ label: "Price (Buy):", content: video.prices.buy })}
+        {renderField({ label: "Price (Rent): ", content: video.prices.rent })}
       </div>
     );
   };
