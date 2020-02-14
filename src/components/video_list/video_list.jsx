@@ -2,6 +2,9 @@ import React from "react";
 import VideoItem from "../video_item/video_item.jsx";
 
 const VideoList = props => {
+  let videos = props.videos || [];
+  let current_category = props.current_category || "";
+
   let renderVideos = videos =>
     videos.map((video, index) => (
       <VideoItem
